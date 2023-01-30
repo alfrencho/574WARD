@@ -1,32 +1,67 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
+import axios from "axios";
 
-function MyComponent() {
-  const [isMounted, setIsMounted] = useState(false);
-  const [myState, setMyState] = useState(initialValue);
+const Home = () => {
+  const [userInput, setUserInput] = useState(''); 
+  const [apiOutput, setApiOutput] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
 
-  useEffect(() => {
-    setIsMounted(true);
-    return () => {
-      setIsMounted(false);
-    };
-  }, []);
+  const onUserChangedText = (event) => {
+    setUserInput(event.target.value);
+  };
 
-  function handleClick() {
-    if (isMounted) {
-      setMyState(newValue);
+  const callGenerateEndpoint = async () => {
+    setIsGenerating(true);
+    
+    console.log("Calling OpenAI...")
+    const response = await fetch('/api/generate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.API_KEY}`
+      },
+      body: JSON.stringify({ userInput }),
+    });
+
+    if (response.ok) {
+      const json = await response.json();
+      setApiOutput(json.text);
+      setIsGenerating(false);
     }
-  }
+  };
 
   return (
-    <div>
-      <button onClick={handleClick}>Update State</button>
+    <div className="root">
+      <div className="container">
+        <div className="header">
+          <div className="header-title">
+            <h1>574WARD Marketing Assistant</h1>
+          </div>
+          <div className="header-subtitle">
+            <h2>Build The Bend</h2>
+          </div>
+        </div>
+        <div className="prompt-container">
+          <textarea 
+            placeholder="start typing here" 
+            className="prompt-box" 
+            value={userInput} 
+            onChange={onUserChangedText} 
+          />
+        </div>
+        <div className="prompt-buttons">
+          <a className="generate-button" onClick={callGenerateEndpoint}>
+            <div className="generate">
+              <p>Generate</p>
+            </div>
+          </a>
+        </div>
+        <div className="api-output">
+          <p>{apiOutput}</p>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
-export default MyComponent;
-
-
-
-
-
+export default Home;
