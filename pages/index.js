@@ -3,7 +3,6 @@ import axios from "axios";
 
 const Home = () => {
   const [userInput, setUserInput] = useState(''); 
-};
   const [apiOutput, setApiOutput] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -22,10 +21,6 @@ const Home = () => {
       },
       body: JSON.stringify({ userInput }),
     });
-
-  const basePromptOutput = baseCompletion.data.choices.pop();
-
-  res.status(200).json({ output: basePromptOutput });
 };
 
   return (
