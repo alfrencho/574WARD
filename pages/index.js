@@ -4,9 +4,6 @@ import axios from "axios";
 const Home = () => {
   const [userInput, setUserInput] = useState('');
 };
-const onUserChangedText = (event) => {
-  console.log(event.target.value);
-  setUserInput(event.target.value);
   const [apiOutput, setApiOutput] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -25,7 +22,9 @@ const onUserChangedText = (event) => {
       },
       body: JSON.stringify({ userInput }),
     });
-  
+  const onUserChangedText = (event) => {
+  console.log(event.target.value);
+  setUserInput(event.target.value);
   const basePromptOutput = baseCompletion.data.choices.pop();
 
   res.status(200).json({ output: basePromptOutput });
