@@ -1,3 +1,6 @@
+import React, { useState, useEffect} from 'react';
+import axios from "axios";
+
 const Home = () => {
   const [userInput, setUserInput] = useState(''); 
   const [apiOutput, setApiOutput] = useState('');
@@ -11,16 +14,20 @@ const Home = () => {
     setIsGenerating(true);
     
     console.log("Calling OpenAI...")
-    const response = await fetch(`/api/generate?apiKey=${process.env.API_KEY}`, {
+    const response = await fetch('/api/generate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.API_KEY}`
       },
       body: JSON.stringify({ userInput }),
     });
-    const responseJson = await response.json();
-    setApiOutput(responseJson.output);
-    setIsGenerating(false);
+
+    if (response.ok) {
+      const json = await response.json();
+      setApiOutput(json.text);
+      setIsGenerating(false);
+    }
   };
 
   return (
@@ -49,12 +56,16 @@ const Home = () => {
             </div>
           </a>
         </div>
+        <div className="api-output">
+          <p>{apiOutput}</p>
+        </div>
       </div>
     </div>
   );
 };
 
 export default Home;
+
 
 
 
