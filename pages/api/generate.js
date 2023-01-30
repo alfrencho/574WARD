@@ -1,9 +1,8 @@
 // Imports the Configuration and OpenAIApi classes from the openai library
 import { Configuration, OpenAIApi } from 'openai';
 
-// Creates a Configuration instance with the OpenAI API key from the environment variable
 const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
+apiKey: process.env.OPENAI_API_KEY,
 });
 
 // Creates an OpenAIApi instance using the Configuration instance
