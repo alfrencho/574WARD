@@ -2,9 +2,7 @@ import React, { useState, useEffect} from 'react';
 import axios from "axios";
 
 const Home = () => {
-  const [userInput, setUserInput] = useState(''); const onUserChangedText = (event) => {
-  console.log(event.target.value);
-  setUserInput(event.target.value);
+  const [userInput, setUserInput] = useState(''); 
 };
   const [apiOutput, setApiOutput] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
