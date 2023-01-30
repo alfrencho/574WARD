@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
+import axios from "axios";
 
 const Home = () => {
   const [userInput, setUserInput] = useState('');
@@ -28,6 +29,17 @@ const Home = () => {
     setApiOutput(`${output.text}`);
     setIsGenerating(false);
   }
+  const baseCompletion = await openai.createCompletion({
+    model: 'text-davinci-003',
+    prompt: `${basePromptPrefix}${req.body.userInput}`,
+    temperature: 0.7,
+    max_tokens: 250,
+  });
+  
+  const basePromptOutput = baseCompletion.data.choices.pop();
+
+  res.status(200).json({ output: basePromptOutput });
+};
 
   return (
     <div className="root">
