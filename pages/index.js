@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from "axios";
 
 const Home = () => {
-  const [userInput, setUserInput] = useState('');
+  const [userInput, setUserInput] = useState(''); 
   const [apiOutput, setApiOutput] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -13,8 +14,9 @@ const Home = () => {
     setIsGenerating(true);
 
     console.log("Calling OpenAI...")
-    const response = await fetch('/api/generate', {
-      method: 'POST',
+    const response = await axios.post('/api/generate', {
+      userInput
+    }, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
@@ -22,13 +24,11 @@ const Home = () => {
       body: JSON.stringify({ userInput }),
     });
 
-    const data = await response.json();
-    const { output } = data;
-    console.log("OpenAI replied...", output.text)
-
-    setApiOutput(`${output.text}`);
-    setIsGenerating(false);
-  }
+    if (response.status === 200) {
+      setApiOutput(response.data.text);
+      setIsGenerating(false);
+    }
+  };
 
   return (
     <div className="root">
@@ -55,6 +55,9 @@ const Home = () => {
               <p>Generate</p>
             </div>
           </a>
+        </div>
+        <div className="api-output">
+          <p>{apiOutput}</p>
         </div>
       </div>
     </div>
