@@ -1,22 +1,23 @@
-// Imports the Configuration and OpenAIApi classes from the openai library
-import { Configuration, OpenAIApi } from 'openai';
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const { Configuration, OpenAIApi } = require('openai');
+
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
 
 const configuration = new Configuration({
-apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
-// Creates an OpenAIApi instance using the Configuration instance
 const openai = new OpenAIApi(configuration);
 
-// Define the prefix for the API prompt
 const basePromptPrefix = "";
 
-// Define the generateAction function
-const generateAction = async (req, res) => {
-  // Log the API request
-  console.log(`API: ${basePromptPrefix}${req.body.userInput}`)
+app.post('/api/generate', async (req, res) => {
+  console.log(`API: ${basePromptPrefix}${req.body.userInput}`);
 
-  // Call the OpenAI API to generate a response to the prompt
   const baseCompletion = await openai.createCompletion({
     model: 'text-davinci-003',
     prompt: `${basePromptPrefix}${req.body.userInput}`,
@@ -24,12 +25,11 @@ const generateAction = async (req, res) => {
     max_tokens: 250,
   });
   
-  // Get the response from the API call
   const basePromptOutput = baseCompletion.data.choices.pop();
 
-  // Return the response to the client
-  res.status(200).json({ output: basePromptOutput });
-};
+  res.status(200).json({ text: basePromptOutput });
+});
 
-// Export the generateAction function
-export default generateAction;
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`Server is listening on port ${process.env.PORT || 3000}`);
+});
