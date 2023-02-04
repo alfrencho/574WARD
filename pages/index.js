@@ -3,34 +3,31 @@ import { OpenAIApi } from 'openai';
 
 const Home = () => {
   const [userInput, setUserInput] = useState('');
+  
   const [apiOutput, setApiOutput] = useState('');
-  const [isGenerating, setIsGenerating] = useState(false);
+const [isGenerating, setIsGenerating] = useState(false)
 
-  const onUserChangedText = (event) => {
-    setUserInput(event.target.value);
-  }
-
-  const callGenerateEndpoint = async () => {
-    setIsGenerating(true);
-    
-    console.log("Calling OpenAI...")
-    const response = await fetch('/api/generate', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
-      },
-      body: JSON.stringify({ userInput }),
-    });
+const callGenerateEndpoint = async () => {
+  setIsGenerating(true);
+ 
   
-    const data = await response.json();
-    const { output } = data;
-    console.log("OpenAI replied...", output.text)
-  
-    setApiOutput(`${output.text}`);
-    setIsGenerating(false);
-  }
+  console.log("Calling OpenAI...")
+  const response = await fetch('/api/generate', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+    },
+    body: JSON.stringify({ userInput }),
+  });
 
+  const data = await response.json();
+  const { output } = data;
+  console.log("OpenAI replied...", output.text)
+
+  setApiOutput(`${output.text}`);
+  setIsGenerating(false);
+}
   return (
     <div className="root">
       <div className="container">
@@ -44,11 +41,11 @@ const Home = () => {
         </div>
         <div className="prompt-container">
         </div>
-        <textarea
-          placeholder="start typing here"
-          className="prompt-box"
-          value={userInput}
-          onChange={onUserChangedText} />
+       <textarea
+  placeholder="start typing here"
+  className="prompt-box"
+  value={userInput}
+  onChange={onUserChangedText} />
         <div className="prompt-buttons">
           <a
             className={isGenerating ? 'generate-button loading' : 'generate-button'}
@@ -56,6 +53,19 @@ const Home = () => {
           >
             <div className="generate">
               {isGenerating ? <span className="loader"></span> : <p>Generate</p>}
+  {apiOutput && (
+  <div className="output">
+    <div className="output-header-container">
+      <div className="output-header">
+        <h3>Output</h3>
+      </div>
+    </div>
+    <div className="output-content">
+      <p>{apiOutput}</p>
+    </div>
+  </div>
+)}
+</div>
             </div>
           </a>
         </div>
@@ -63,8 +73,5 @@ const Home = () => {
     </div>
   );
 };
-
-export default Home;
-
-
  
+export default Home;
