@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import { OpenAIApi } from 'openai';
 
-  }
-});
-
 const Home = () => {
   const [userInput, setUserInput] = useState("");
   const onUserChangedText = event => {
