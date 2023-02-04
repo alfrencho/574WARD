@@ -9,9 +9,7 @@ const [isGenerating, setIsGenerating] = useState(false)
 
 const callGenerateEndpoint = async () => {
   setIsGenerating(true);
-  
-  const onUserChangedText = (e) => {
-  setUserInput(e.target.value);
+ 
   
   console.log("Calling OpenAI...")
   const response = await fetch('/api/generate', {
