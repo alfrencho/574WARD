@@ -1577,9 +1577,6 @@ minimatch@^3.0.4, minimatch@^3.0.5, minimatch@^3.1.1, minimatch@^3.1.2:
 minimist@^1.2.0, minimist@^1.2.6:
   version "1.2.7"
 
-modules@^0.4.0:
-  version "0.4.0"
-
 ms@^2.1.1, ms@2.1.2:
   version "2.1.2"
 
@@ -1597,11 +1594,6 @@ natural-compare@^1.4.0:
 
 negotiator@0.6.3:
   version "0.6.3"
-
-next.js@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/next.js/-/next.js-1.0.3.tgz"
-  integrity sha512-nosnT7Jh4ML3kzwG9MPW+SfBKuHoZEMcCWw5kxwMYXoxnADGzIxWl+TdDMcEZP6Xl/t8m/5uyVlA9SBkH2oh/w==
 
 next@^13.1.6:
   version "13.1.6"
@@ -1633,11 +1625,6 @@ node-releases@^2.0.8:
   version "2.0.9"
   resolved "https://registry.npmjs.org/node-releases/-/node-releases-2.0.9.tgz"
   integrity sha512-2xfmOrRkGogbTK9R6Leda0DGiXeY3p2NJpy4+gNCffdUvV6mdEJnaDEic1i3Ec2djAo8jWYoJMR5PB0MSMpxUA==
-
-node@^19.6.0:
-  version "19.6.0"
-  dependencies:
-    node-bin-setup "^1.0.0"
 
 object-assign@^4, object-assign@^4.1.1:
   version "4.1.1"
