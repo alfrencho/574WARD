@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-import { OpenAIApi } from 'openai';
-
 const Home = () => {
   const [userInput, setUserInput] = useState("");
   const onUserChangedText = event => {
@@ -15,7 +13,7 @@ const Home = () => {
     setIsGenerating(true);
     
     console.log("Calling OpenAI...")
-    const response =  fetch('/api/generate', {
+    const response =  await fetch('/api/generate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -24,21 +22,13 @@ const Home = () => {
       body: JSON.stringify({ userInput }),
     });
   
-    const data = await  response.json();
+    const data = await response.json();
     const { output } = data;
     console.log("OpenAI replied...", output.text)
   
     setApiOutput(`${output.text}`);
     setIsGenerating(false);
   }
-  
-  const Home = () => {
-    const [userInput, setUserInput] = useState("");
-    const onUserChangedText = event => {
-      setUserInput(event.target.value);
-    };
-  }
-const apiKey = process.env.OPENAI_API_KEY;
 
   return (
     <div className="root">
@@ -83,3 +73,4 @@ const apiKey = process.env.OPENAI_API_KEY;
   );
 };
 export default Home;
+
