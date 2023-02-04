@@ -22,7 +22,7 @@ const Home = () => {
     setIsGenerating(true);
     
     console.log("Calling OpenAI...")
-    const response =  fetch('/api/generate', {
+    const response =  fetch('/api/generate.js', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
