@@ -10,8 +10,11 @@ const [isGenerating, setIsGenerating] = useState(false)
 const callGenerateEndpoint = async () => {
   setIsGenerating(true);
   
+  const onUserChangedText = (e) => {
+  setUserInput(e.target.value);
+  
   console.log("Calling OpenAI...")
-  const response = fetch('/api/generate', {
+  const response = await fetch('/api/generate', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -39,11 +42,11 @@ const callGenerateEndpoint = async () => {
         </div>
         <div className="prompt-container">
         </div>
-        <textarea
-          placeholder="start typing here"
-          className="prompt-box"
-          value={userInput}
-          onChange={onUserChangedText} />
+       <textarea
+  placeholder="start typing here"
+  className="prompt-box"
+  value={userInput}
+  onChange={onUserChangedText} />
         <div className="prompt-buttons">
           <a
             className={isGenerating ? 'generate-button loading' : 'generate-button'}
@@ -59,3 +62,4 @@ const callGenerateEndpoint = async () => {
   );
 };
  
+export default Home;
