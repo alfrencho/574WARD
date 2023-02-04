@@ -5,10 +5,9 @@ const configuration = new Configuration({
 });
 
 const openai = new OpenAIApi(configuration);
-<<<<<<< HEAD
 
-=======
->>>>>>> 66e410bf8984ff9a316e81587a55a01f1cdfa096
+
+
 const basePromptPrefix = "";
 const generateAction = async (req, res) => {
   // Run first prompt
