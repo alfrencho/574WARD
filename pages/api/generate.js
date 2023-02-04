@@ -24,4 +24,3 @@ const generateAction = async (req, res) => {
 export default generateAction;
 
 
-
