@@ -16,7 +16,7 @@ const callGenerateEndpoint = async () => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+      'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
       organization: "org-YVl95I1I1Q2MPN1YIky48FC7",
     },
     body: JSON.stringify({ userInput }),
