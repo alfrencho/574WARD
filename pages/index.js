@@ -102,7 +102,6 @@ const apiKey = process.env.OPENAI_API_KEY;
         </div>
       </a></> 
    
-  );
 };
 
 export default Home;
