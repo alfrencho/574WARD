@@ -1,35 +1,53 @@
 import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
-import { OpenAIApi } from 'openai-api';
+import axios from 'axios';
+import { OpenAIApi } from 'openai';
+
+const axiosInstance = axios.create({
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+  }
+});
 
 const Home = () => {
-  const [userInput, setUserInput] = useState('');
+  const [userInput, setUserInput] = useState("");
+  const onUserChangedText = event => {
+    setUserInput(event.target.value);
+  };
   
   const [apiOutput, setApiOutput] = useState('');
-const [isGenerating, setIsGenerating] = useState(false)
-
-const callGenerateEndpoint = async () => {
-  setIsGenerating(true);
- 
+  const [isGenerating, setIsGenerating] = useState(false);
   
-  console.log("Calling OpenAI...")
-  const response = await fetch('/api/generate', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-      organization: "org-YVl95I1I1Q2MPN1YIky48FC7",
-    },
-    body: JSON.stringify({ userInput }),
-  });
+  const callGenerateEndpoint = async () => {
+    setIsGenerating(true);
+    
+    console.log("Calling OpenAI...")
+    const response =  fetch('/api/generate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+      },
+      body: JSON.stringify({ userInput }),
+    });
+  
+    const data = await  response.json();
+    const { output } = data;
+    console.log("OpenAI replied...", output.text)
+  
+    setApiOutput(`${output.text}`);
+    setIsGenerating(false);
+  }
+  
+  const Home = () => {
+    const [userInput, setUserInput] = useState("");
+    const onUserChangedText = event => {
+      setUserInput(event.target.value);
+    };
+  }
+const apiKey = process.env.OPENAI_API_KEY;
 
-  const data = await response.json();
-  const { output } = data;
-  console.log("OpenAI replied...", output.text)
-
-  setApiOutput(`${output.text}`);
-  setIsGenerating(false);
-}
   return (
     <div className="root">
       <div className="container">
@@ -42,20 +60,21 @@ const callGenerateEndpoint = async () => {
           </div>
         </div>
         <div className="prompt-container">
+          <textarea 
+            placeholder="start typing here" 
+            className="prompt-box" 
+            value={userInput} 
+            onChange={onUserChangedText} 
+          />
         </div>
-       <textarea
-  placeholder="start typing here"
-  className="prompt-box"
-  value={userInput}
-  onChange={onUserChangedText} />
         <div className="prompt-buttons">
-          <a
-            className={isGenerating ? 'generate-button loading' : 'generate-button'}
-            onClick={callGenerateEndpoint}
-          >
+          <a className="generate-button" onClick={callGenerateEndpoint}>
             <div className="generate">
-              {isGenerating ? <span className="loader"></span> : <p>Generate</p>}
-  {apiOutput && (
+              <p>Generate</p>
+            </div>
+          </a>
+        </div>
+        {apiOutput && (
   <div className="output">
     <div className="output-header-container">
       <div className="output-header">
@@ -68,13 +87,7 @@ const callGenerateEndpoint = async () => {
   </div>
 )}
 </div>
-</a>
-            </div>
-          </a>
-        </div>
-      </div>
     </div>
   );
 };
- 
 export default Home;
