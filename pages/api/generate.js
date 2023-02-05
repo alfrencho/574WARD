@@ -2,7 +2,7 @@
 import { Configuration, OpenAIApi } from 'openai';
 
 const configuration = new Configuration({
-apiKey: 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,
+apiKey:process.env.OPENAI_API_KEY,
 });
 
 // Creates an OpenAIApi instance using the Configuration instance
