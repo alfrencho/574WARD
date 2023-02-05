@@ -1,12 +1,5 @@
 import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
-const axiosInstance = axios.create({
-  headers: {
-    'Content-Type': 'application/json',
-  }
-});
 
 const Home = () => {
   const [userInput, setUserInput] = useState("");
@@ -21,18 +14,20 @@ const Home = () => {
     setIsGenerating(true);
 
     console.log("Calling OpenAI...");
-    try {
-      const response = await axiosInstance.post('/api/generate', { userInput }, {
-        headers: {
-          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
-        },
-      });
+    const response = await fetch('/api/generate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+      },
+      body: JSON.stringify({ userInput }),
+    });
 
-      console.log("OpenAI replied...", response.data.output.text);
-      setApiOutput(response.data.output.text);
-    } catch (error) {
-      console.error(error);
-    }
+    const data = await response.json();
+    const { output } = data;
+    console.log("OpenAI replied...", output.text);
+
+    setApiOutput(`${output.text}`);
     setIsGenerating(false);
   };
 
@@ -58,5 +53,6 @@ const Home = () => {
         <div className="prompt-buttons">
           <a
             className={isGenerating ? 'generate-
+
 
 
