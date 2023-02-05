@@ -6,7 +6,8 @@ import { OpenAIApi } from 'openai';
 const axiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
-  
+    'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+  }
  
 });
 
@@ -27,7 +28,7 @@ const Home = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+       
       },
       body: JSON.stringify({ userInput }),
     });
