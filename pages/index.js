@@ -32,8 +32,8 @@ const Home = () => {
       body: JSON.stringify({ userInput }),
     });
   
-    const fetch data = await response.json();
-    const { output } = data;
+    const data = await response.json();
+    const { output } = Fetch data;
     console.log("OpenAI replied...", output.text)
   
     setApiOutput(`${output.text}`);
