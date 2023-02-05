@@ -17,7 +17,7 @@ const Home = () => {
     const response = await fetch('https://api.openai.com/v1/engines/text-davinci-002/jobs', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
         'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
       },
       body: JSON.stringify({ userInput }),
