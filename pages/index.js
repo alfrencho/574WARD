@@ -14,7 +14,7 @@ const Home = () => {
     setIsGenerating(true);
 
     console.log("Calling OpenAI...");
-    const response = await fetch('/api/generate', {
+    const response = await fetch('https://api.openai.com/v1/engines/text-davinci-002/jobs', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
