@@ -4,12 +4,12 @@ const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const openai = new OpenAIApi(configuration);
+const api = new OpenAIApi(configuration);
 const basePromptPrefix = "";
 const generateAction = async (req, res) => {
   console.log(`API: ${basePromptPrefix}${req.body.userInput}`)
 
-  const baseCompletion = await openai.createCompletion({
+  const baseCompletion = await api.createCompletion({
     model: 'text-davinci-003',
     prompt: `${basePromptPrefix}${req.body.userInput}`,
     temperature: 0.7,
@@ -22,6 +22,3 @@ const generateAction = async (req, res) => {
 };
 
 export default generateAction;
-
-
-

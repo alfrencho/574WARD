@@ -1,7 +1,20 @@
-import React, { useState } from 'react';
+import Head from 'next/head';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { OpenAIApi } from 'openai';
+
+const axiosInstance = axios.create({
+  headers: {
+    'Content-Type': 'application/json',
+  }
+});
 
 const Home = () => {
-  const [userInput, setUserInput] = useState('');
+  const [userInput, setUserInput] = useState("");
+  const onUserChangedText = event => {
+    setUserInput(event.target.value);
+  };
+
   const [apiOutput, setApiOutput] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -26,10 +39,6 @@ const Home = () => {
     setIsGenerating(false);
   };
 
-  const onUserChangedText = (event) => {
-    setUserInput(event.target.value);
-  };
-
   return (
     <div className="root">
       <div className="container">
@@ -51,27 +60,5 @@ const Home = () => {
         />
         <div className="prompt-buttons">
           <a
-            className={isGenerating ? 'generate-button loading' : 'generate-button'}
-            onClick={callGenerateEndpoint}
-          >
-            <div className="generate">
-              {isGenerating ? <span className="loader"></span> : <p>Generate</p>}
-              {apiOutput && (
-                <div className="output">
-                  <div className="output-header-container">
-                    <div className="output-header">
-                      <h3>Output</h3>
-                    </div>
-                  </div>
-                  <div className="output-content">
-                    <p>{apiOutput}</p>
-                  </div>
-                </div>
-              )}
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-  );
-};
+            className={isGenerating ? 'generate-
+
