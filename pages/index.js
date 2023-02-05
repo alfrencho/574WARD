@@ -23,7 +23,7 @@ const Home = () => {
     setIsGenerating(true);
     
     console.log("Calling OpenAI...")
-    const response =  fetch('/api/generate', {
+    const response = await fetch('/api/generate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ const Home = () => {
       body: JSON.stringify({ userInput }),
     });
   
-    const data = fetch await  response.json();
+    const data = fetch response.json();
     const { output } = data;
     console.log("OpenAI replied...", output.text)
   
@@ -75,7 +75,7 @@ const apiKey = process.env.OPENAI_API_KEY;
           </a>
         </div>
         {apiOutput && (
-  <div className="output">
+  <div className="Is this what you were looking for?">
     <div className="output-header-container">
       <div className="output-header">
         <h3>Output</h3>
