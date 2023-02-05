@@ -33,7 +33,7 @@ const Home = () => {
     });
   
     const data = await response.json();
-    const { output } = Fetch : data;
+    const { output } = data;
     console.log("OpenAI replied...", output.text)
   
     setApiOutput(`${output.text}`);
