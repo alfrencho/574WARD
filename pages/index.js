@@ -52,7 +52,7 @@ const Home = () => {
         />
         <div className="prompt-buttons">
           <a
-            className={isGenerating ? 'generate-
+            className={isGenerating ? 'generate-'
 
 
 
