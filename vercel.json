@@ -1,4 +1,7 @@
 {
+  "cleanUrls": true
+}
+{
   "functions": {
     "api/test.js": {
       "memory": 3008,
