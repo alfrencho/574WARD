@@ -18,7 +18,7 @@ const generateAction = async (req, res) => {
 
   // Call the OpenAI API to generate a response to the prompt
   const baseCompletion = await openai.createCompletion({
-    model: 'text-davinci-003',
+    model: 'text-davinci-002',
     prompt: `${basePromptPrefix}${req.body.userInput}`,
     temperature: 0.7,
     max_tokens: 250,
