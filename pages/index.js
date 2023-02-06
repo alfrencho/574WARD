@@ -1,7 +1,8 @@
-import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { OpenAIApi } from 'openai';
+import secrets from './secrets.API_KEY';
+import Head from 'next/head';
 
 const axiosInstance = axios.create({
   headers: {
@@ -38,18 +39,13 @@ const Home = () => {
   
     setApiOutput(`${output.text}`);
     setIsGenerating(false);
-  }
+  };
   
-  const Home = () => {
-    const [userInput, setUserInput] = useState("");
-    const onUserChangedText = event => {
-      setUserInput(event.target.value);
-    };
-  }
-const apiKey = ${secrets.API_KEY}
-
   return (
     <div className="root">
+      <Head>
+        <title>574WARD Marketing Assistant</title>
+      </Head>
       <div className="container">
         <div className="header">
           <div className="header-title">
@@ -75,18 +71,18 @@ const apiKey = ${secrets.API_KEY}
           </a>
         </div>
         {apiOutput && (
-  <div className="Is this what you were looking for?">
-    <div className="output-header-container">
-      <div className="output-header">
-        <h3>Output</h3>
+          <div className="output-container">
+            <div className="output-header-container">
+              <div className="output-header">
+                <h3>Output</h3>
+              </div>
+            </div>
+            <div className="output-content">
+              <p>{apiOutput}</p>
+            </div>
+          </div>
+        )}
       </div>
-    </div>
-    <div className="output-content">
-      <p>{apiOutput}</p>
-    </div>
-  </div>
-)}
-</div>
     </div>
   );
 };
