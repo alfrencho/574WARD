@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { OpenAIApi } from 'openai';
-import secrets from './secrets.API_KEY';
+import secrets from 'secrets.API_KEY';
 import Head from 'next/head';
 
 const axiosInstance = axios.create({
