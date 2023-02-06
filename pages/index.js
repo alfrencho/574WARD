@@ -46,7 +46,7 @@ const Home = () => {
       setUserInput(event.target.value);
     };
   }
-const apiKey = process.${secrets.API_KEY}
+const apiKey = ${secrets.API_KEY}
 
   return (
     <div className="root">
