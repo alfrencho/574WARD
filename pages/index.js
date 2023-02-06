@@ -20,26 +20,29 @@ const Home = () => {
   const [apiOutput, setApiOutput] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   
-  const callGenerateEndpoint = async () => {
-    setIsGenerating(true);
+  useEffect(() => {
+    const callGenerateEndpoint = async () => {
+      setIsGenerating(true);
     
-    console.log("Calling OpenAI...")
-    const response = await fetch('/api/generate', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-       
-      },
-      body: JSON.stringify({ userInput }),
-    });
-  
-    const data = await response.json();
-    const { output } = data;
-    console.log("OpenAI replied...", output.text)
-  
-    setApiOutput(`${output.text}`);
-    setIsGenerating(false);
-  };
+      console.log("Calling OpenAI...")
+      const response = await fetch('/api/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userInput }),
+      });
+    
+      const data = await response.json();
+      const { output } = data;
+      console.log("OpenAI replied...", output.text)
+    
+      setApiOutput(`${output.text}`);
+      setIsGenerating(false);
+    };
+    
+    callGenerateEndpoint();
+  }, [userInput]);
   
   return (
     <div className="root">
@@ -62,13 +65,6 @@ const Home = () => {
             value={userInput} 
             onChange={onUserChangedText} 
           />
-        </div>
-        <div className="prompt-buttons">
-          <a className="generate-button" onClick={callGenerateEndpoint}>
-            <div className="generate">
-              <p>Generate</p>
-            </div>
-          </a>
         </div>
         {apiOutput && (
           <div className="output-container">
