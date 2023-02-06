@@ -6,9 +6,8 @@ import { OpenAIApi } from 'openai';
 const axiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+    'Authorization': `Bearer ${secrets.API_KEY}`
   }
- 
 });
 
 const Home = () => {
@@ -47,7 +46,7 @@ const Home = () => {
       setUserInput(event.target.value);
     };
   }
-const apiKey = process.env.OPENAI_API_KEY;
+const apiKey = process.${secrets.API_KEY}
 
   return (
     <div className="root">
