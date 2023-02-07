@@ -1,36 +1,43 @@
 import { useState } from 'react';
 
 const Home = () => {
-  const [userInput, setUserInput] = useState('');
-  const [apiOutput, setApiOutput] = useState('')
-  const [isGenerating, setIsGenerating] = useState(false)
-
-const callGenerateEndpoint = async () => {
-  setIsGenerating(true);
-  
-  console.log("Calling OpenAI...")
-  const response = await fetch('/api/generate', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ userInput }),
-  });
-
-  const data = await response.json();
-  const { output } = data;
-  console.log("OpenAI replied...", output.text)
-
-  setApiOutput(`${output.text}`);
-  setIsGenerating(false);
-}
-  const onUserChangedText = (event) => {
-   
+  const [userInput, setUserInput] = useState("");
+  const onUserChangedText = event => {
     setUserInput(event.target.value);
   };
-
+  
+  const [apiOutput, setApiOutput] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
+  
+  useEffect(() => {
+    const callGenerateEndpoint = async () => {
+      setIsGenerating(true);
+    
+      console.log("Calling OpenAI...")
+      const response = await fetch('/api/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userInput }),
+      });
+    
+      const data = await response.json();
+      const { output } = data;
+      console.log("OpenAI replied...", output.text)
+    
+      setApiOutput(`${output.text}`);
+      setIsGenerating(false);
+    };
+    
+    callGenerateEndpoint();
+  }, [userInput]);
+  
   return (
     <div className="root">
+      <Head>
+        <title>574WARD Marketing Assistant</title>
+      </Head>
       <div className="container">
         <div className="header">
           <div className="header-title">
